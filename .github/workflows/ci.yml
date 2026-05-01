@@ -31,7 +31,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - uses: javidahmed64592/actions-template-python/actions/setup/check-tests-exists@main
+        id: check-tests-exists
       - uses: javidahmed64592/actions-template-python/actions/ci/pytest@main
+        if: steps.check-tests-exists.outputs.exists == 'true'
 
   bandit:
     runs-on: ubuntu-latest
