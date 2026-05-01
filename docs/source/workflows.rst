@@ -4,7 +4,7 @@ Workflows
 This document details the CI/CD workflows and reusable actions to build and release Python applications.
 They run automated code quality checks to ensure code remains robust, maintainable, and testable.
 
-The following actions can be referenced from other repositories using ``javidahmed64592/|repository_name|/actions/{category}/{action}@main``.
+The following actions can be referenced from other repositories using ``javidahmed64592/|repo_name|/actions/{category}/{action}@main``.
 
 ----
 
@@ -26,7 +26,7 @@ Setup Actions
 .. code-block:: yaml
 
    steps:
-     - uses: javidahmed64592/|repository_name|/actions/setup/setup-uv-python@main
+     - uses: javidahmed64592/|repo_name|/actions/setup/setup-uv-python@main
 
 ----
 
@@ -44,7 +44,7 @@ Setup Actions
 .. code-block:: yaml
 
    steps:
-     - uses: javidahmed64592/|repository_name|/actions/setup/install-python-core@main
+     - uses: javidahmed64592/|repo_name|/actions/setup/install-python-core@main
 
 ----
 
@@ -62,7 +62,7 @@ Setup Actions
 .. code-block:: yaml
 
    steps:
-     - uses: javidahmed64592/|repository_name|/actions/setup/install-python-dev@main
+     - uses: javidahmed64592/|repo_name|/actions/setup/install-python-dev@main
 
 ----
 
@@ -80,7 +80,7 @@ Setup Actions
 .. code-block:: yaml
 
    steps:
-     - uses: javidahmed64592/|repository_name|/actions/setup/install-python-docs@main
+     - uses: javidahmed64592/|repo_name|/actions/setup/install-python-docs@main
 
 ----
 
@@ -143,7 +143,7 @@ CI Actions
 .. code-block:: yaml
 
    steps:
-     - uses: javidahmed64592/|repository_name|/actions/ci/validate-pyproject@main
+     - uses: javidahmed64592/|repo_name|/actions/ci/validate-pyproject@main
 
 ----
 
@@ -161,7 +161,7 @@ CI Actions
 .. code-block:: yaml
 
    steps:
-     - uses: javidahmed64592/|repository_name|/actions/ci/ruff@main
+     - uses: javidahmed64592/|repo_name|/actions/ci/ruff@main
 
 ----
 
@@ -179,7 +179,7 @@ CI Actions
 .. code-block:: yaml
 
    steps:
-     - uses: javidahmed64592/|repository_name|/actions/ci/mypy@main
+     - uses: javidahmed64592/|repo_name|/actions/ci/mypy@main
 
 ----
 
@@ -199,7 +199,7 @@ CI Actions
 .. code-block:: yaml
 
    steps:
-     - uses: javidahmed64592/|repository_name|/actions/ci/pytest@main
+     - uses: javidahmed64592/|repo_name|/actions/ci/pytest@main
 
 ----
 
@@ -218,7 +218,7 @@ CI Actions
 .. code-block:: yaml
 
    steps:
-     - uses: javidahmed64592/|repository_name|/actions/ci/bandit@main
+     - uses: javidahmed64592/|repo_name|/actions/ci/bandit@main
 
 ----
 
@@ -236,7 +236,7 @@ CI Actions
 .. code-block:: yaml
 
    steps:
-     - uses: javidahmed64592/|repository_name|/actions/ci/pip-audit@main
+     - uses: javidahmed64592/|repo_name|/actions/ci/pip-audit@main
 
 ----
 
@@ -257,14 +257,14 @@ CI Actions
 .. code-block:: yaml
 
    steps:
-     - uses: javidahmed64592/|repository_name|/actions/ci/version-check@main
+     - uses: javidahmed64592/|repo_name|/actions/ci/version-check@main
 
 **Advanced usage with additional version files:**
 
 .. code-block:: yaml
 
    steps:
-     - uses: javidahmed64592/|repository_name|/actions/ci/version-check@main
+     - uses: javidahmed64592/|repo_name|/actions/ci/version-check@main
        with:
          additional-versions: '[{"name": "package.json", "version": "1.2.3"}]'
 
@@ -311,7 +311,7 @@ Build Actions
 .. code-block:: yaml
 
    steps:
-     - uses: javidahmed64592/|repository_name|/actions/build/build-wheel@main
+     - uses: javidahmed64592/|repo_name|/actions/build/build-wheel@main
 
 ----
 
@@ -333,14 +333,14 @@ Build Actions
 .. code-block:: yaml
 
    steps:
-     - uses: javidahmed64592/|repository_name|/actions/build/verify-structure@main
+     - uses: javidahmed64592/|repo_name|/actions/build/verify-structure@main
 
 **Advanced usage with additional checks:**
 
 .. code-block:: yaml
 
    steps:
-     - uses: javidahmed64592/|repository_name|/actions/build/verify-structure@main
+     - uses: javidahmed64592/|repo_name|/actions/build/verify-structure@main
        with:
          expected-directories: |
            static
@@ -385,7 +385,7 @@ Docs Actions
 .. code-block:: yaml
 
    steps:
-     - uses: javidahmed64592/|repository_name|/actions/docs/build-docs@main
+     - uses: javidahmed64592/|repo_name|/actions/docs/build-docs@main
 
 ----
 
@@ -410,7 +410,7 @@ Docs Actions
 
    steps:
      - id: publish
-       uses: javidahmed64592/|repository_name|/actions/docs/publish-docs@main
+       uses: javidahmed64592/|repo_name|/actions/docs/publish-docs@main
      - run: echo "Deployed to ${{ steps.publish.outputs.page_url }}"
 
 ----
