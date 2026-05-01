@@ -273,7 +273,7 @@ CI Actions
   - Uses the ``install-python-dev`` action
   - Extracts version from ``pyproject.toml`` using ``uv run ci-pyproject-version``
   - Verifies ``uv.lock`` version matches using ``uv run ci-uv-lock-version``
-  - Optionally checks additional version files via ``additional-versions`` input
+  - Verifies frontend version in ``package.json`` matches if frontend directory exists
   - Fails if any version mismatch is detected
 
 **Usage:**
@@ -281,16 +281,12 @@ CI Actions
 .. code-block:: yaml
 
    steps:
-     - uses: javidahmed64592/|repo_name|/actions/ci/version-check@main
+    - uses: javidahmed64592/actions-template-python/actions/setup/check-frontend-exists@main
+      id: check-frontend-exists
 
-**Advanced usage with additional version files:**
-
-.. code-block:: yaml
-
-   steps:
      - uses: javidahmed64592/|repo_name|/actions/ci/version-check@main
        with:
-         additional-versions: '[{"name": "package.json", "version": "1.2.3"}]'
+         frontend-dir-exists: ${{ steps.check-frontend-exists.outputs.exists }}
 
 ----
 
