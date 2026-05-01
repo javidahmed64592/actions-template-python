@@ -84,6 +84,30 @@ Setup Actions
 
 ----
 
+**check-tests-exists**
+
+- **Description:** Check if the tests directory exists in the repository to conditionally execute test CI jobs.
+- **Location:** ``check-tests-exists/action.yml``
+- **Outputs:**
+
+  - ``exists``: Indicates whether the tests directory exists
+
+- **Steps:**
+
+  - Checks for directory named ``tests``
+  - Sets output to ``true`` or ``false`` based on directory existence
+  - Logs message if directory doesn't exist
+
+**Usage:**
+
+.. code-block:: yaml
+
+   steps:
+     - uses: javidahmed64592/python-template-server/.github/actions/setup/check-tests-exists@main
+       id: check-tests
+
+----
+
 **check-frontend-exists**
 
 - **Description:** Check if the frontend directory exists in the repository to conditionally execute frontend CI and build jobs.
