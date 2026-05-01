@@ -13,50 +13,50 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ./actions/ci/validate-pyproject@main
+      - uses: ./actions/ci/validate-pyproject
 
   ruff:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ./actions/ci/ruff@main
+      - uses: ./actions/ci/ruff
 
   mypy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ./actions/ci/mypy@main
+      - uses: ./actions/ci/mypy
 
   pytest:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ./actions/setup/check-tests-exists@main
+      - uses: ./actions/setup/check-tests-exists
         id: check-tests-exists
-      - uses: ./actions/ci/pytest@main
+      - uses: ./actions/ci/pytest
         if: steps.check-tests-exists.outputs.exists == 'true'
 
   bandit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ./actions/ci/bandit@main
+      - uses: ./actions/ci/bandit
 
   pip-audit:
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
       - uses: actions/checkout@v6
-      - uses: ./actions/ci/pip-audit@main
+      - uses: ./actions/ci/pip-audit
 
   version-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ./actions/setup/check-frontend-exists@main
+      - uses: ./actions/setup/check-frontend-exists
         id: check-frontend-exists
 
-      - uses: ./actions/ci/version-check@main
+      - uses: ./actions/ci/version-check
         with:
           frontend-dir-exists: ${{ steps.check-frontend-exists.outputs.exists }}
 
@@ -64,8 +64,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ./actions/setup/check-frontend-exists@main
+      - uses: ./actions/setup/check-frontend-exists
         id: check-frontend-exists
 
-      - uses: ./actions/ci/frontend@main
+      - uses: ./actions/ci/frontend
         if: steps.check-frontend-exists.outputs.exists == 'true'
