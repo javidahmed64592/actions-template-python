@@ -13,50 +13,50 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: javidahmed64592/actions-template-python/.github/actions/ci/validate-pyproject@main
+      - uses: javidahmed64592/actions-template-python/actions/ci/validate-pyproject@main
 
   ruff:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: javidahmed64592/actions-template-python/.github/actions/ci/ruff@main
+      - uses: javidahmed64592/actions-template-python/actions/ci/ruff@main
 
   mypy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: javidahmed64592/actions-template-python/.github/actions/ci/mypy@main
+      - uses: javidahmed64592/actions-template-python/actions/ci/mypy@main
 
   pytest:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: javidahmed64592/actions-template-python/.github/actions/ci/pytest@main
+      - uses: javidahmed64592/actions-template-python/actions/ci/pytest@main
 
   bandit:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: javidahmed64592/actions-template-python/.github/actions/ci/bandit@main
+      - uses: javidahmed64592/actions-template-python/actions/ci/bandit@main
 
   pip-audit:
     runs-on: ubuntu-latest
     continue-on-error: true
     steps:
       - uses: actions/checkout@v6
-      - uses: javidahmed64592/actions-template-python/.github/actions/ci/pip-audit@main
+      - uses: javidahmed64592/actions-template-python/actions/ci/pip-audit@main
 
   version-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: javidahmed64592/actions-template-python/.github/actions/ci/version-check@main
+      - uses: javidahmed64592/actions-template-python/actions/ci/version-check@main
 
   frontend:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: javidahmed64592/actions-template-python/.github/actions/setup/check-frontend-exists@main
+      - uses: javidahmed64592/actions-template-python/actions/setup/check-frontend-exists@main
         id: check-frontend-exists
 
       - id: check-frontend
@@ -64,5 +64,5 @@ jobs:
           $GITHUB_OUTPUT
         shell: bash
 
-      - uses: javidahmed64592/actions-template-python/.github/actions/ci/frontend@main
+      - uses: javidahmed64592/actions-template-python/actions/ci/frontend@main
         if: steps.check-frontend.outputs.exists == 'true'
