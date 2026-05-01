@@ -22,12 +22,21 @@ wheels = [
 name = "actions-template-python"
 version = "0.0.1"
 source = { virtual = "." }
-dependencies = [
-    { name = "template-python", extra = ["dev", "docs"] },
+
+[package.optional-dependencies]
+dev = [
+    { name = "template-python", extra = ["dev"] },
+]
+docs = [
+    { name = "template-python", extra = ["docs"] },
 ]
 
 [package.metadata]
-requires-dist = [{ name = "template-python", extras = ["dev", "docs"], git = "https://github.com/javidahmed64592/template-python.git" }]
+requires-dist = [
+    { name = "template-python", extras = ["dev"], marker = "extra == 'dev'", git = "https://github.com/javidahmed64592/template-python.git" },
+    { name = "template-python", extras = ["docs"], marker = "extra == 'docs'", git = "https://github.com/javidahmed64592/template-python.git" },
+]
+provides-extras = ["dev", "docs"]
 
 [[package]]
 name = "alabaster"

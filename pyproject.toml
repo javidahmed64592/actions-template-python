@@ -1,7 +1,7 @@
 [project]
 name = "actions-template-python"
 version = "0.0.1"
-description = "A template FastAPI server with production-ready configuration."
+description = "Actions for repositories derived from my Python templates."
 readme = "README.md"
 requires-python = ">=3.13"
 license = { file = "LICENSE" }
@@ -13,8 +13,13 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "License :: OSI Approved :: MIT License",
 ]
-dependencies = [
-    "template-python[dev,docs] @ git+https://github.com/javidahmed64592/template-python.git",
+
+[project.optional-dependencies]
+dev = [
+    "template-python[dev] @ git+https://github.com/javidahmed64592/template-python.git",
+]
+docs = [
+    "template-python[docs] @ git+https://github.com/javidahmed64592/template-python.git",
 ]
 
 [project.urls]
