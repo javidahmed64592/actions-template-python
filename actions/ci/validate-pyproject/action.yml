@@ -1,0 +1,12 @@
+name: Run CI job - Validate pyproject.toml
+description: Validate pyproject.toml structure.
+
+runs:
+  using: composite
+  steps:
+      - uses: javidahmed64592/actions-template-python/actions/setup/install-python-dev@main
+
+      - name: Validate pyproject.toml
+        run: |
+          uv run validate-pyproject pyproject.toml
+        shell: bash

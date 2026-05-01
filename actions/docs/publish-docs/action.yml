@@ -1,0 +1,25 @@
+name: Publish Documentation with Sphinx
+description: Deploys Sphinx documentation to GitHub Pages.
+
+outputs:
+  page_url:
+    description: 'URL of the deployed GitHub Pages site'
+    value: ${{ steps.deployment.outputs.page_url }}
+
+runs:
+  using: composite
+  steps:
+    - name: Download docs artifact
+      uses: actions/download-artifact@v7
+      with:
+        name: documentation
+        path: docs/build/
+
+    - name: Upload to GitHub Pages
+      uses: actions/upload-pages-artifact@v4
+      with:
+        path: docs/build/html
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v5

@@ -1,0 +1,49 @@
+name: Run CI job - Version Check
+description: Check version consistency across pyproject.toml and uv.lock.
+
+inputs:
+  additional-versions:
+    description: 'Additional versions to check as JSON array. Each entry should have "name" and "version" fields. Example: [{"name": "package.json", "version": "1.2.3"}]'
+    required: false
+    default: '[]'
+
+runs:
+  using: composite
+  steps:
+      - uses: javidahmed64592/actions-template-python/actions/setup/install-python-dev@main
+
+      - name: Check version consistency
+        run: |
+          # Get reference version from pyproject.toml
+          REFERENCE_VERSION=$(uv run ci-pyproject-version)
+          echo "Reference version (pyproject.toml): $REFERENCE_VERSION"
+
+          MISMATCH=false
+
+          # Check uv.lock
+          LOCK_VERSION=$(uv run ci-uv-lock-version)
+          if [ "$LOCK_VERSION" != "$REFERENCE_VERSION" ]; then
+            echo "❌ uv.lock: $LOCK_VERSION (expected $REFERENCE_VERSION)"
+            MISMATCH=true
+          fi
+
+          # Check additional versions if provided
+          ADDITIONAL='${{ inputs.additional-versions }}'
+          if [ "$ADDITIONAL" != "[]" ] && [ -n "$ADDITIONAL" ]; then
+            while IFS= read -r item; do
+              name=$(echo "$item" | jq -r '.name')
+              version=$(echo "$item" | jq -r '.version')
+              if [ "$version" != "$REFERENCE_VERSION" ]; then
+                echo "❌ $name: $version (expected $REFERENCE_VERSION)"
+                MISMATCH=true
+              fi
+            done < <(echo "$ADDITIONAL" | jq -c '.[]')
+          fi
+
+          if [ "$MISMATCH" = true ]; then
+            echo "Version consistency check FAILED!"
+            exit 1
+          fi
+
+          echo "All versions match: $REFERENCE_VERSION"
+        shell: bash

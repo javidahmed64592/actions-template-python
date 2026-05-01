@@ -1,0 +1,24 @@
+name: Run Build job - Build Wheel
+description: Build Python wheel package and upload as artifact.
+
+runs:
+  using: composite
+  steps:
+      - uses: javidahmed64592/actions-template-python/actions/setup/install-python-core@main
+
+      - name: Create wheel
+        run: |
+          uv build
+        shell: bash
+
+      - name: Inspect wheel contents
+        run: |
+          echo "Wheel contents:"
+          unzip -l dist/${{ env.PACKAGE_NAME }}-*-py3-none-any.whl
+        shell: bash
+
+      - name: Upload wheel
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ env.PACKAGE_NAME }}_wheel
+          path: dist/${{ env.PACKAGE_NAME }}-*-py3-none-any.whl
