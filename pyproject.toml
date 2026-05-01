@@ -13,8 +13,13 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "License :: OSI Approved :: MIT License",
 ]
-dependencies = [
-    "template-python[dev,docs] @ git+https://github.com/javidahmed64592/template-python.git",
+
+[project.optional-dependencies]
+dev = [
+    "template-python[dev] @ git+https://github.com/javidahmed64592/template-python.git",
+]
+docs = [
+    "template-python[docs] @ git+https://github.com/javidahmed64592/template-python.git",
 ]
 
 [project.urls]
