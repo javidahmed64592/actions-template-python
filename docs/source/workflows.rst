@@ -345,6 +345,7 @@ Build Actions
   - Downloads the wheel artifact (named ``{PACKAGE_NAME}_wheel``)
   - Installs the wheel using ``uv pip install``
   - Verifies that ``site-packages`` and the package directory exist
+  - Verifies the ``static`` directory exists if frontend is present
   - Optionally verifies additional directories specified in inputs
   - Fails if any required directory is missing
 
@@ -353,17 +354,27 @@ Build Actions
 .. code-block:: yaml
 
    steps:
+    - uses: javidahmed64592/actions-template-python/actions/setup/check-frontend-exists@main
+      id: check-frontend-exists
+
      - uses: javidahmed64592/|repo_name|/actions/build/verify-structure@main
+       with:
+         frontend-dir-exists: ${{ steps.check-frontend-exists.outputs.exists }}
 
 **Advanced usage with additional checks:**
 
 .. code-block:: yaml
 
    steps:
+    - uses: javidahmed64592/actions-template-python/actions/setup/check-frontend-exists@main
+      id: check-frontend-exists
+
      - uses: javidahmed64592/|repo_name|/actions/build/verify-structure@main
        with:
-         expected-directories: |
-           static
+        frontend-dir-exists: ${{ steps.check-frontend-exists.outputs.exists }}
+        expected-directories: |
+          custom_directory_1
+          custom_directory_2
 
 ----
 
