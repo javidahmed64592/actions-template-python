@@ -2,6 +2,9 @@ name: Run Build job - Verify Structure
 description: Download and verify the structure of the built wheel package.
 
 inputs:
+  frontend-dir-exists:
+    description: 'Indicates whether the frontend directory exists. Example: true or false'
+    required: true
   expected-directories:
     description: 'Newline-separated list of directories expected to exist relative to site-packages'
     required: false
@@ -10,52 +13,57 @@ inputs:
 runs:
   using: composite
   steps:
-      - uses: javidahmed64592/actions-template-python/actions/setup/install-python-core@main
+    - uses: javidahmed64592/actions-template-python/actions/setup/install-python-core@main
 
-      - name: Download wheel artifact
-        uses: actions/download-artifact@v7
-        with:
-          name: ${{ env.PACKAGE_NAME }}_wheel
+    - name: Download wheel artifact
+      uses: actions/download-artifact@v7
+      with:
+        name: ${{ env.PACKAGE_NAME }}_wheel
 
-      - name: Install wheel
-        run: |
-          WHEEL_FILE=$(find . -name "${{ env.PACKAGE_NAME }}-*-py3-none-any.whl")
+    - name: Install wheel
+      run: |
+        WHEEL_FILE=$(find . -name "${{ env.PACKAGE_NAME }}-*-py3-none-any.whl")
 
-          if [ ! -f "$WHEEL_FILE" ]; then
-            echo "Wheel file not found"
+        if [ ! -f "$WHEEL_FILE" ]; then
+          echo "Wheel file not found"
+          exit 1
+        fi
+
+        echo "Installing wheel: $WHEEL_FILE"
+        uv pip install "$WHEEL_FILE"
+      shell: bash
+
+    - name: Verify installed package structure
+      run: |
+        SITE_PACKAGES=$(find . -name "site-packages" -type d | head -1)
+        echo "Site-packages directory: $SITE_PACKAGES"
+
+        # Check required directories in site-packages
+        echo "Checking required directories in site-packages..."
+        REQUIRED_DIRS=(
+          "${SITE_PACKAGES}"
+          "${SITE_PACKAGES}/${{ env.PACKAGE_NAME }}"
+        )
+
+        # Check static directory if frontend exists
+        if [ "${{ inputs.frontend-dir-exists }}" = "true" ]; then
+          REQUIRED_DIRS+=("${SITE_PACKAGES}/static")
+        fi
+
+        if [ -n "${{ inputs.expected-directories }}" ]; then
+          while IFS= read -r dir; do
+            if [ -n "$dir" ]; then
+              REQUIRED_DIRS+=("${SITE_PACKAGES}/${dir}")
+            fi
+          done <<< "${{ inputs.expected-directories }}"
+        fi
+
+        # Check for required directories in site-packages
+        echo "Checking required directories in site-packages..."
+        for dir in "${REQUIRED_DIRS[@]}"; do
+          if [ ! -d "$dir" ]; then
+            echo "Required directory not found: $dir"
             exit 1
           fi
-
-          echo "Installing wheel: $WHEEL_FILE"
-          uv pip install "$WHEEL_FILE"
-        shell: bash
-
-      - name: Verify installed package structure
-        run: |
-          SITE_PACKAGES=$(find . -name "site-packages" -type d | head -1)
-          echo "Site-packages directory: $SITE_PACKAGES"
-
-          # Check required directories in site-packages
-          echo "Checking required directories in site-packages..."
-          REQUIRED_DIRS=(
-            "${SITE_PACKAGES}"
-            "${SITE_PACKAGES}/${{ env.PACKAGE_NAME }}"
-          )
-
-          if [ -n "${{ inputs.expected-directories }}" ]; then
-            while IFS= read -r dir; do
-              if [ -n "$dir" ]; then
-                REQUIRED_DIRS+=("${SITE_PACKAGES}/${dir}")
-              fi
-            done <<< "${{ inputs.expected-directories }}"
-          fi
-
-          # Check for required directories in site-packages
-          echo "Checking required directories in site-packages..."
-          for dir in "${REQUIRED_DIRS[@]}"; do
-            if [ ! -d "$dir" ]; then
-              echo "Required directory not found: $dir"
-              exit 1
-            fi
-          done
-        shell: bash
+        done
+      shell: bash
