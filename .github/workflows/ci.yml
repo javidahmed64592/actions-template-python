@@ -59,10 +59,5 @@ jobs:
       - uses: javidahmed64592/actions-template-python/actions/setup/check-frontend-exists@main
         id: check-frontend-exists
 
-      - id: check-frontend
-        run: echo "exists=${{ steps.check-frontend-exists.outputs.exists }}" >>
-          $GITHUB_OUTPUT
-        shell: bash
-
       - uses: javidahmed64592/actions-template-python/actions/ci/frontend@main
-        if: steps.check-frontend.outputs.exists == 'true'
+        if: steps.check-frontend-exists.outputs.exists == 'true'
