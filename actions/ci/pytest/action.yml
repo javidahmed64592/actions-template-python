@@ -4,15 +4,16 @@ description: Run Pytest tests with coverage reporting.
 runs:
   using: composite
   steps:
-      - uses: javidahmed64592/actions-template-python/actions/setup/install-python-dev@main
+    - uses: javidahmed64592/actions-template-python/actions/setup/install-python-dev@main
 
-      - name: Test with pytest
-        run: |
-          uv run -m pytest --cov-report html --cov-report term
-        shell: bash
+    - name: Test with pytest
+      run: |
+        uv run -m pytest --cov-report html --cov-report term
+        echo "✅ Tests passed"
+      shell: bash
 
-      - name: Upload backend coverage report
-        uses: actions/upload-artifact@v7
-        with:
-          name: backend-coverage-report
-          path: htmlcov
+    - name: Upload backend coverage report
+      uses: actions/upload-artifact@v7
+      with:
+        name: backend-coverage-report
+        path: htmlcov

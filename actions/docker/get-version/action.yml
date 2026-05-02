@@ -18,4 +18,5 @@ runs:
         VERSION=$(uv run ci-pyproject-version)
         echo "version=$VERSION" >> $GITHUB_OUTPUT
         echo "tag=v$VERSION" >> $GITHUB_OUTPUT
+        echo "✅ Version: $VERSION"
       shell: bash

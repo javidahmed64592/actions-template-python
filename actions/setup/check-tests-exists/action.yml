@@ -18,4 +18,5 @@ runs:
           echo "exists=false" >> $GITHUB_OUTPUT
           echo "Tests directory does not exist, skipping tests"
         fi
+        echo "✅ Tests check completed"
       shell: bash

@@ -17,4 +17,5 @@ runs:
       run: |
         REPO_NAME="${{ github.event.repository.name }}"
         echo "PACKAGE_NAME=${REPO_NAME//-/_}" >> $GITHUB_ENV
+        echo "✅ Package name set: ${REPO_NAME//-/_}"
       shell: bash
