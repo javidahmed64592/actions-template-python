@@ -128,7 +128,7 @@ Setup Actions
 
    steps:
      - uses: javidahmed64592/python-template-server/.github/actions/setup/check-frontend-exists@main
-       id: check-frontend
+       id: check-frontend-exists
 
 ----
 
