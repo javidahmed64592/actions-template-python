@@ -26,9 +26,8 @@ runs:
           MISMATCH=true
         fi
 
-        # Check additional versions if provided
+        # Check frontend package.json if it exists
         if [ "${{ inputs.frontend-dir-exists }}" = "true" ]; then
-          # Check ${{ github.event.repository.name }}-frontend" for package.json version
           FRONTEND_VERSION=$(cat "${{ github.event.repository.name }}-frontend/package.json" | jq -r '.version')
           if [ "$FRONTEND_VERSION" != "$REFERENCE_VERSION" ]; then
             echo "❌ package.json: $FRONTEND_VERSION (expected $REFERENCE_VERSION)"
@@ -36,10 +35,10 @@ runs:
           fi
         fi
 
-          if [ "$MISMATCH" = true ]; then
-            echo "Version consistency check FAILED!"
-            exit 1
-          fi
+        if [ "$MISMATCH" = true ]; then
+          echo "❌ Version consistency check FAILED!"
+          exit 1
+        fi
 
-          echo "All versions match: $REFERENCE_VERSION"
+        echo "✅ All versions match: $REFERENCE_VERSION"
       shell: bash
