@@ -4,9 +4,10 @@ description: Run Mypy type checking on the codebase.
 runs:
   using: composite
   steps:
-      - uses: javidahmed64592/actions-template-python/actions/setup/install-python-dev@main
+    - uses: javidahmed64592/actions-template-python/actions/setup/install-python-dev@main
 
-      - name: Check with mypy
-        run: |
-          uv run -m mypy .
-        shell: bash
+    - name: Check with mypy
+      run: |
+        uv run -m mypy .
+        echo "✅ Type checking passed"
+      shell: bash

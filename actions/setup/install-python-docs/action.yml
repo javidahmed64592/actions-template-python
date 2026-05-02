@@ -9,4 +9,5 @@ runs:
     - name: Install dependencies
       run: |
         uv sync --extra docs
+        echo "✅ Docs dependencies installed"
       shell: bash

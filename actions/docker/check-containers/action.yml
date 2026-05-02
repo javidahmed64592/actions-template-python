@@ -26,9 +26,11 @@ runs:
           else
             echo "Health check failed, attempt $i/${{ inputs.num-retries }}"
             if [ $i -eq ${{ inputs.num-retries }} ]; then
+              echo "❌ Health check failed after ${{ inputs.num-retries }} attempts"
               exit 1
             fi
             sleep ${{ inputs.timeout-seconds }}
           fi
         done
+        echo "✅ Server health check passed"
       shell: bash

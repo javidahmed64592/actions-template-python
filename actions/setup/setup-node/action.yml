@@ -13,5 +13,6 @@ runs:
     - name: Install dependencies
       run: |
         npm ci
+        echo "✅ Dependencies installed"
       working-directory: ${{ github.event.repository.name }}-frontend
       shell: bash

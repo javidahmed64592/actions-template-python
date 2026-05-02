@@ -23,4 +23,5 @@ runs:
         else
           echo "tag_exists=false" >> $GITHUB_OUTPUT
         fi
+        echo "✅ Tag check completed"
       shell: bash

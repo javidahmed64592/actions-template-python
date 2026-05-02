@@ -19,4 +19,5 @@ runs:
         mv .env.example .env
         docker compose ${{ inputs.build-args }} up --build -d
         sleep ${{ inputs.wait-seconds }}
+        echo "✅ Services started successfully"
       shell: bash

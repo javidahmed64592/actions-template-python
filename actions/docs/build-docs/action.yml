@@ -10,6 +10,7 @@ runs:
       run: |
         uv run sphinx-build -M clean docs/source/ docs/build/
         uv run sphinx-build -M html docs/source/ docs/build/
+        echo "✅ Documentation built successfully"
       shell: bash
 
     - name: Upload docs artifact

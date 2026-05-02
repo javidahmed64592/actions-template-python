@@ -16,6 +16,7 @@ runs:
         VERSION=$(uv run ci-pyproject-version)
         echo "package_name=${PACKAGE_NAME}" >> $GITHUB_OUTPUT
         echo "package_dir=${PACKAGE_NAME}_${VERSION}" >> $GITHUB_OUTPUT
+        echo "✅ Package: ${PACKAGE_NAME} v${VERSION}"
       shell: bash
 
     - name: Prepare release directory
@@ -24,12 +25,14 @@ runs:
         mkdir $PACKAGE_DIR
         cp docker-compose.yml README.md LICENSE .env.example $PACKAGE_DIR/
         tree $PACKAGE_DIR --dirsfirst -F
+        echo "✅ Release directory prepared: $PACKAGE_DIR"
       shell: bash
 
     - name: Create release tarball
       run: |
         PACKAGE_DIR="${{ steps.get_package_info.outputs.package_dir }}"
         tar -czf ${PACKAGE_DIR}.tar.gz $PACKAGE_DIR
+        echo "✅ Tarball created: ${PACKAGE_DIR}.tar.gz"
       shell: bash
 
     - name: Upload release tarball

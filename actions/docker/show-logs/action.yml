@@ -5,5 +5,7 @@ runs:
   using: composite
   steps:
     - name: Show container logs
-      run: docker compose logs ${{ github.event.repository.name }}
+      run: |
+        docker compose logs ${{ github.event.repository.name }}
+        echo "✅ Logs displayed"
       shell: bash

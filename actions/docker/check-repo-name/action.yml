@@ -31,4 +31,5 @@ runs:
           echo "should_release=true" >> $GITHUB_OUTPUT
         fi
         echo "package_name=${PACKAGE_NAME}" >> $GITHUB_OUTPUT
+        echo "✅ Repository check completed"
       shell: bash

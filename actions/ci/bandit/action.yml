@@ -4,14 +4,15 @@ description: Run Bandit security checks on the codebase.
 runs:
   using: composite
   steps:
-      - uses: javidahmed64592/actions-template-python/actions/setup/install-python-dev@main
+    - uses: javidahmed64592/actions-template-python/actions/setup/install-python-dev@main
 
-      - name: Security check
-        run: |
-          uv run bandit -r ${{ env.PACKAGE_NAME }} -f json -o bandit-report.json || true
-        shell: bash
+    - name: Security check
+      run: |
+        uv run bandit -r ${{ env.PACKAGE_NAME }} -f json -o bandit-report.json || true
+        echo "✅ Security check completed"
+      shell: bash
 
-      - uses: actions/upload-artifact@v7
-        with:
-          name: bandit-report
-          path: bandit-report.json
+    - uses: actions/upload-artifact@v7
+      with:
+        name: bandit-report
+        path: bandit-report.json

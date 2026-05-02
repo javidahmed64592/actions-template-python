@@ -5,5 +5,7 @@ runs:
   using: composite
   steps:
     - name: Stop services
-      run: docker compose down --volumes --remove-orphans
+      run: |
+        docker compose down --volumes --remove-orphans
+        echo "✅ Services stopped"
       shell: bash

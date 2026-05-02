@@ -25,12 +25,13 @@ runs:
         WHEEL_FILE=$(find . -name "${{ env.PACKAGE_NAME }}-*-py3-none-any.whl")
 
         if [ ! -f "$WHEEL_FILE" ]; then
-          echo "Wheel file not found"
+          echo "❌ Wheel file not found"
           exit 1
         fi
 
         echo "Installing wheel: $WHEEL_FILE"
         uv pip install "$WHEEL_FILE"
+        echo "✅ Wheel installed successfully"
       shell: bash
 
     - name: Verify installed package structure
@@ -62,8 +63,9 @@ runs:
         echo "Checking required directories in site-packages..."
         for dir in "${REQUIRED_DIRS[@]}"; do
           if [ ! -d "$dir" ]; then
-            echo "Required directory not found: $dir"
+            echo "❌ Required directory not found: $dir"
             exit 1
           fi
         done
+        echo "✅ Package structure verified"
       shell: bash
