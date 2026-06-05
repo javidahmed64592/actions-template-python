@@ -1,13 +1,13 @@
-name: Run CI job - Mypy
-description: Run Mypy type checking on the codebase.
+name: Run CI job - Ty
+description: Run Ty type checking on the codebase.
 
 runs:
   using: composite
   steps:
     - uses: javidahmed64592/actions-template-python/actions/setup/install-python-dev@main
 
-    - name: Check with mypy
+    - name: Check with Ty
       run: |
-        uv run -m mypy .
+        uv run ty check .
         echo "✅ Type checking passed"
       shell: bash

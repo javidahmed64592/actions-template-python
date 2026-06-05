@@ -21,11 +21,11 @@ jobs:
       - uses: actions/checkout@v6
       - uses: ./actions/ci/ruff
 
-  mypy:
+  ty:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
-      - uses: ./actions/ci/mypy
+      - uses: ./actions/ci/ty
 
   pytest:
     runs-on: ubuntu-latest
