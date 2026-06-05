@@ -189,21 +189,21 @@ CI Actions
 
 ----
 
-**mypy**
+**ty**
 
-- **Description:** Run Mypy type checking on the codebase.
-- **Location:** ``mypy/action.yml``
+- **Description:** Run Ty type checking on the codebase.
+- **Location:** ``ty/action.yml``
 - **Steps:**
 
   - Uses the ``install-python-dev`` action
-  - Runs ``uv run -m mypy .`` to perform static type checking
+  - Runs ``uv run ty check .`` to perform static type checking
 
 **Usage:**
 
 .. code-block:: yaml
 
    steps:
-     - uses: javidahmed64592/|repo_name|/actions/ci/mypy@main
+     - uses: javidahmed64592/|repo_name|/actions/ci/ty@main
 
 ----
 
