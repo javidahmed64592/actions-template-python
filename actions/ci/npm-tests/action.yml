@@ -1,0 +1,18 @@
+name: CI - NPM Tests
+description: Run tests on the frontend codebase.
+
+runs:
+  using: composite
+  steps:
+    - name: Run tests
+      run: |
+        npm run test:coverage
+        echo "✅ Tests passed"
+      working-directory: ${{ github.event.repository.name }}-frontend
+      shell: bash
+
+    - name: Upload frontend coverage report
+      uses: actions/upload-artifact@v7
+      with:
+        name: frontend-coverage-report
+        path: ${{ github.event.repository.name }}-frontend/coverage

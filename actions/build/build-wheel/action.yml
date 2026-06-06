@@ -4,8 +4,6 @@ description: Build Python wheel package and upload as artifact.
 runs:
   using: composite
   steps:
-    - uses: javidahmed64592/actions-template-python/actions/setup/install-python-core@main
-
     - name: Create wheel
       run: |
         uv build

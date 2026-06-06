@@ -4,8 +4,6 @@ description: Build the frontend and upload the build artifacts for use in other 
 runs:
   using: composite
   steps:
-    - uses: javidahmed64592/actions-template-python/actions/setup/setup-node@main
-
     - name: Build frontend
       run: |
         npm run build

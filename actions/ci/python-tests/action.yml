@@ -1,11 +1,9 @@
-name: Run CI job - Pytest
-description: Run Pytest tests with coverage reporting.
+name: CI - Python Tests
+description: Run Python tests with coverage reporting.
 
 runs:
   using: composite
   steps:
-    - uses: javidahmed64592/actions-template-python/actions/setup/install-python-dev@main
-
     - name: Test with pytest
       run: |
         uv run -m pytest --cov-report html --cov-report term

@@ -4,8 +4,6 @@ description: Installs documentation Python dependencies from pyproject.toml usin
 runs:
   using: composite
   steps:
-    - uses: javidahmed64592/actions-template-python/actions/setup/setup-uv-python@main
-
     - name: Install dependencies
       run: |
         uv sync --extra docs

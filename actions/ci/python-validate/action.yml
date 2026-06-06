@@ -1,15 +1,19 @@
-name: Run CI job - Version Check
-description: Check version consistency across pyproject.toml and uv.lock.
+name: CI - Python Validation Checks
+description: Validate pyproject.toml structure and check version consistency across files.
 
 inputs:
   frontend-dir-exists:
-    description: 'Indicates whether the frontend directory exists. Example: true or false'
+    description: "Indicates whether the frontend directory exists. Example: true or false"
     required: true
 
 runs:
   using: composite
   steps:
-    - uses: javidahmed64592/actions-template-python/actions/setup/install-python-dev@main
+    - name: Validate pyproject.toml
+      run: |
+        uv run validate-pyproject pyproject.toml
+        echo "✅ pyproject.toml is valid"
+      shell: bash
 
     - name: Check version consistency
       run: |
@@ -28,7 +32,7 @@ runs:
 
         # Check frontend package.json if it exists
         if [ "${{ inputs.frontend-dir-exists }}" = "true" ]; then
-          FRONTEND_VERSION=$(cat "${{ github.event.repository.name }}-frontend/package.json" | jq -r '.version')
+          FRONTEND_VERSION=$(cat "${{ github.event.repository.name }}-frontend/package.json" | jq -r ".version")
           if [ "$FRONTEND_VERSION" != "$REFERENCE_VERSION" ]; then
             echo "❌ package.json: $FRONTEND_VERSION (expected $REFERENCE_VERSION)"
             MISMATCH=true
