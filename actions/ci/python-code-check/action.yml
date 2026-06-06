@@ -1,0 +1,17 @@
+name: CI - Python Code Check
+description: Run code checks on the codebase.
+
+runs:
+  using: composite
+  steps:
+    - name: Check with ruff
+      run: |
+        uv run -m ruff check
+        echo "✅ Linting passed"
+      shell: bash
+
+    - name: Check with Ty
+      run: |
+        uv run ty check .
+        echo "✅ Type checking passed"
+      shell: bash

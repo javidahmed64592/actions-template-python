@@ -4,8 +4,6 @@ description: Builds documentation using Sphinx and uploads it as an artifact.
 runs:
   using: composite
   steps:
-    - uses: javidahmed64592/actions-template-python/actions/setup/install-python-docs@main
-
     - name: Build docs
       run: |
         uv run sphinx-build -M clean docs/source/ docs/build/

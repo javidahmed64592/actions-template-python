@@ -3,7 +3,7 @@ description: Deploys Sphinx documentation to GitHub Pages.
 
 outputs:
   page_url:
-    description: 'URL of the deployed GitHub Pages site'
+    description: "URL of the deployed GitHub Pages site"
     value: ${{ steps.deployment.outputs.page_url }}
 
 runs:

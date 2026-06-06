@@ -7,14 +7,7 @@ This repository provides reusable Github Actions for use by repositories derivin
 - ``template-python``: https://github.com/javidahmed64592/template-python
 - ``python-template-server``: https://github.com/javidahmed64592/python-template-server
 
-Detailed Documentation
-======================
-
-.. toctree::
-   :maxdepth: 3
-   :caption: Workflows
-
-   workflows
+See the workflow files in the ``.github/workflows`` directory for examples of how to use these actions in your repository.
 
 Indices and tables
 ==================
