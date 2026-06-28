@@ -15,6 +15,12 @@ runs:
         echo "✅ pyproject.toml is valid"
       shell: bash
 
+    - name: Check dependency version alignment
+      run: |
+        uv run uv-align --check
+        echo "✅ Dependencies versions are aligned between pyproject.toml and uv.lock"
+      shell: bash
+
     - name: Check version consistency
       run: |
         # Get reference version from pyproject.toml
