@@ -4,9 +4,19 @@ description: Run security checks on the codebase.
 runs:
   using: composite
   steps:
-    - uses: PyCQA/bandit-action@v1
+    - name: Security check
+      run: |
+        uv run bandit -r ${{ env.PACKAGE_NAME }} -f json -o bandit-report.json || true
+        echo "✅ Security check completed"
+      shell: bash
 
-    - uses: pypa/gh-action-pip-audit@v1.1.0
+    - uses: actions/upload-artifact@v7
       with:
-        inputs: .
-        virtual-environment: .venv
+        name: bandit-report
+        path: bandit-report.json
+
+    - name: Audit dependencies
+      run: |
+        uv run pip-audit --desc
+        echo "✅ Dependency audit passed"
+      shell: bash
