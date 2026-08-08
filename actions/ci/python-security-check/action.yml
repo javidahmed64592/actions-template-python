@@ -7,5 +7,3 @@ runs:
     - uses: PyCQA/bandit-action@v1
 
     - uses: pypa/gh-action-pip-audit@v1.1.0
-      with:
-        inputs: pyproject.toml
