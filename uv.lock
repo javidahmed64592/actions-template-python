@@ -1172,7 +1172,7 @@ wheels = [
 [[package]]
 name = "template-python"
 version = "0.1.0"
-source = { git = "https://github.com/javidahmed64592/template-python.git#6a662ac85189086a07fa745cd94ef0f74e87e410" }
+source = { git = "https://github.com/javidahmed64592/template-python.git#f6806aa97ef086f3e10960d812a94c89b0bd234b" }
 dependencies = [
     { name = "pydantic" },
     { name = "pyhere" },
