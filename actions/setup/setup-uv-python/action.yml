@@ -23,8 +23,11 @@ runs:
     - name: Set package name
       run: |
         REPO_NAME="${{ github.event.repository.name }}"
-        echo "PACKAGE_NAME=${REPO_NAME//-/_}" >> $GITHUB_ENV
-        echo "✅ Package name set: ${REPO_NAME//-/_}"
+        # Wheel and import names are lower case, so match them for repos with capitals (e.g. Valheim-AssetTools).
+        PACKAGE_NAME="${REPO_NAME//-/_}"
+        PACKAGE_NAME="${PACKAGE_NAME,,}"
+        echo "PACKAGE_NAME=${PACKAGE_NAME}" >> $GITHUB_ENV
+        echo "✅ Package name set: ${PACKAGE_NAME}"
       shell: bash
 
     - name: Create virtual environment with uv
